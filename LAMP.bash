@@ -66,3 +66,16 @@ sudo nano /var/www/html/info.php
 echo "Config complete."
 echo "Visit 127.0.0.1/info.php or localhost/info.php"
 echo "Your LAMP stack is complete! Woo!"
+echo "Installing phpmyadmin GUI..."
+sleep 5
+sudo apt install phpmyadmin
+echo "Adding files to phpmyadmin wizard..."
+sudo ln -s /etc/phpmyadmin/apache.conf /etc/apache2/conf-available/phpmyadmin.conf
+sudo a2enconf phpmyadmin
+sudo systemctl reload apache2
+echo "Testing files..."
+file /etc/apache2/conf-enabled/phpmyadmin.conf
+sleep 5
+echo "Opening ufw ports 80 and 443 TCP..."
+sudo ufw allow 80,443/tcp
+echo "Your myphpadmin is now ready"
