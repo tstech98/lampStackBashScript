@@ -1,6 +1,12 @@
 #!/bin/bash
 
-#apache set up
+#Welcom Message
+sudo apt-get install -qq figlet toilet > /dev/null
+figlet -f slant "Welcome To"
+figlet -f slant "LAMP Stacker"
+sleep 10
+
+#Apache Set Up
 echo "Setting up Apache2..."
 sudo apt install -y apache2 apache2-utils
 sudo systemctl start apache2
@@ -11,7 +17,7 @@ echo "Your Apache2 Version: $(apache2 -v)"
 sleep 5
 echo "Configuring ports..."
 sleep 5
-#trying to open ports
+#Trying To Open Ports
 if lsof -Pi :80 -sTCP:LISTEN -t >/dev/null ; then
     echo "Port 80 is already open!"
     exit 1
@@ -41,6 +47,8 @@ echo "Testing apache2..."
 sudo apache2ctl -t
 echo "Apache2 set-up complete..."
 sleep 3
+
+#MariaDB Set Up
 echo "Setting up MariaDB..."
 sudo apt install -y mariadb-server mariadb-client
 echo "Activating MariaDB..."
@@ -52,6 +60,8 @@ sudo mysql_secure_installation
 echo "Your MariaDB version is: $(mariadb --version)"
 echo "MariaDB setup complete."
 sleep 10
+
+#PHP Set Up
 echo "PHP Installing..."
 sudo apt install -y php7.4 libapache2-mod-php7.4 php7.4-mysql php-common php7.4-cli php7.4-common php7.4-json php7.4-opcache php7.4-readline
 echo "PHP packages installed."
@@ -66,6 +76,8 @@ sudo nano /var/www/html/info.php
 echo "Config complete."
 echo "Visit 127.0.0.1/info.php or localhost/info.php"
 echo "Your LAMP stack is complete! Woo!"
+
+#PHP My Admin Set Up
 echo "Installing phpmyadmin GUI..."
 sleep 5
 sudo apt install phpmyadmin
@@ -79,3 +91,4 @@ sleep 5
 echo "Opening ufw ports 80 and 443 TCP..."
 sudo ufw allow 80,443/tcp
 echo "Your myphpadmin is now ready"
+figlet -f slant "Done."
